@@ -1,5 +1,5 @@
 # Utilisez l'image Maven officielle pour construire le projet
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.5-openjdk-17 AS build
 
 # Définissez le répertoire de travail dans le conteneur
 WORKDIR /app
@@ -36,7 +36,7 @@ RUN openssl x509 -req -in request.csr -signkey private_key.pem -out certificate.
 RUN openssl pkcs12 -export -out keystore.p12 -inkey private_key.pem -in certificate.crt -name myalias -passout pass:your_password
 
 # Copiez le fichier JAR généré dans le conteneur
-COPY --from=build /app/target/demo-tls-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Exposez le port sur lequel l'application va s'exécuter
 EXPOSE 8443
