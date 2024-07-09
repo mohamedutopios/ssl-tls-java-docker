@@ -1,5 +1,5 @@
 # Utilisez l'image Maven officielle pour construire le projet
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.5-openjdk-17 AS build
 
 # Définissez le répertoire de travail dans le conteneur
 WORKDIR /app
@@ -21,7 +21,7 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copiez le fichier JAR généré dans le conteneur
-COPY --from=build /app/target/demo-tls-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Exposez le port sur lequel l'application va s'exécuter
 EXPOSE 8080
